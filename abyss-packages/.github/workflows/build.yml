@@ -1,0 +1,48 @@
+name: "Build packages"
+
+env:
+  TERM: xterm
+
+on:
+  push:
+    branches:
+      - main
+
+  repository_dispatch:
+    types: [autotrigger]
+
+  workflow_dispatch:
+    inputs:
+      input_amcheck:
+        description: "Check variables in 250 apps"
+        required: true
+        default: false
+        type: boolean
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  actions: write
+  contents: write
+
+jobs:
+  generate-matrix:
+    name: "matrix 🌀"
+    needs: update-testing-branch
+    runs-on: ubuntu-22.04
+    outputs:
+      skip: ${{ steps.set-matrix.outputs.skip }}
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      count: ${{ steps.am-install.outputs.count }}
+    steps:
+      - name: "Check out repository 🏃"
+        uses: actions/checkout@v4
+
+      - name: "Generate Matrix 🏆"
+        id: set-matrix
+        run: |
+          PACKAGES=$(find . -maxdepth 1 -type d ! -name "." ! -name ".*" -printf "%f\n" 2>/dev/null)
+          echo "${PACKAGES}" > packages.list
+          sh .github/workflows/xbps-mini-builder

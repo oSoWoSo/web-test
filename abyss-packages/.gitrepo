@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = ssh://git@codeberg.org/oSoWoSo/abyss-packages.git
+	branch = main
+	commit = 1f93bf4600c14bf0905f4da9a5a2683ab71b9e10
+	parent = 0a27dbc5c32ed17e4596031ce6de3372f4e26593
+	method = merge
+	cmdver = 0.4.9

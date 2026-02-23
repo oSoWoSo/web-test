@@ -1,0 +1,23 @@
+# Template file for 'tixati'
+pkgname=tixati
+version=3.42
+revision=1
+_upstrrev=1
+archs="x86_64"
+short_desc="Fast bitorrent client"
+maintainer="mobinmob <mobinmob@disroot.org>"
+license="custom:Proprietary" #no licence file for vlicense
+homepage="https://www.tixati.com/"
+changelog="https://www.tixati.com/news/"
+distfiles="https://download.tixati.com/tixati-${version}-${_upstrrev}.x86_64.manualinstall.tar.gz"
+checksum=b6e7a3a104375bd3f2bc004f89e89895edd0632d8928da83bd1968ad2c4fb877
+nopie=yes
+
+do_install() {
+	vbin tixati
+	vdoc README.txt
+	vmkdir usr/share/applications
+	vinstall tixati.desktop 644 usr/share/applications/
+	vmkdir usr/share/usr/share/icons/hicolor/48x48/apps
+	vinstall tixati.png 644 usr/share/icons/hicolor/48x48/apps/
+}

@@ -1,0 +1,97 @@
+name: "Build Abyss packages x86_64 Glibc"
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  REPO_OWNER: "${{ github.repository_owner }}"
+  REPO_NAME: "${{ github.event.repository.name }}"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build Packages
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/void-linux/void-buildroot-${{ matrix.config.libc }}:20240526R1
+      options: --platform ${{ matrix.config.platform }}
+      env:
+        PATH: "/usr/libexec/chroot-git:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/usr/local/bin:/tmp/bin"
+        ARCH: "${{ matrix.config.arch }}"
+        BOOTSTRAP: "${{ matrix.config.host }}"
+        TEST: "${{ matrix.config.test }}"
+        HOSTREPO: /hostrepo
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.set-matrix.outputs.matrix) }}
+    steps:
+      - name: Prepare container
+        run: |
+          mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
+          ls -la
+          sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
+          xbps-install -Syu xbps
+          xbps-install -Syu
+          xbps-install -y tar curl
+
+      - name: Clone Void-Packages and prepare
+        run: |
+          mkdir ~/void-pkgs
+          cd ~/void-pkgs
+          git clone --depth 1 https://github.com/void-linux/void-packages.git
+
+      - name: Clone Abyss repo and prepare
+        run: |
+          cd ~/void-pkgs
+          git clone https://github.com/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}.git
+          cd ${{ env.REPO_NAME }}
+          #cat common/shlibs >> ../void-packages/common/shlibs
+          cp -r srcpkgs/* ../void-packages/srcpkgs
+
+      - name: Create hostrepo and prepare masterdir
+        run: |
+          cd ~/void-pkgs/void-packages
+          ln -s "$(pwd)" /hostrepo &&
+          common/travis/set_mirror.sh &&
+          common/travis/prepare.sh &&
+          common/travis/fetch-xtools.sh
+
+      - name: Generate matrix
+        id: set-matrix
+        run: |
+          directories=$(for d in */ ; do echo "${d%/}"; done)
+          MATRIX="{\"include\": ["
+          for dir in $directories; do
+            MATRIX+="{\"dir\": \"$dir\"},"
+          done
+          MATRIX="${MATRIX%,}]}"
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+
+      - name: "Checkout abyss-bin"
+        run: |
+          # Set up git user information
+          git config user.name "web-flow"
+          git config user.email "noreply@github.com"
+          # Create a new branch
+          git branch -D abyss-bin || true
+          git checkout -b abyss-bin
+
+  run-matrix:
+    needs: example
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.set-matrix.outputs.matrix) }}
+    steps:
+      - name: "build ${{ matrix.directory }}"
+        run: |
+          git clone https://gihub.com/void-linux/void-packages
+          echo "Processing ${{ matrix.directory }}"
+
+      - name: Build tomlplusplus
+        run: (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg tomlplusplus)

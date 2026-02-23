@@ -1,0 +1,29 @@
+# Template file for 'opera-ffmpeg-codecs'
+# Reason to be in unmaintained_templates: depends on third-party for updates,
+# easy to break.
+# This is just a repack of the archlinux package (community repo)
+pkgname=opera-ffmpeg-codecs
+version=95.0.4638.54
+revision=1
+archs="x86_64"
+hostmakedepends="zstd"
+short_desc="Extra codecs for the opera browser"
+maintainer="mobinmob <mobinmob@disroot.org>"
+license="LGPL-2.1-or-later"
+homepage="https://www.archlinux.org/packages/community/x86_64/opera-ffmpeg-codecs/"
+distfiles="https://mirror.bethselamin.de/community/os/x86_64/opera-ffmpeg-codecs-${version}-${revision}-x86_64.pkg.tar.zst"
+checksum=8ffc9fe7334412feb2fb5ac52f9224fb0b27b82f760d08b48885f6e4b9dd8436
+
+do_extract() {
+	bsdtar -xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/${pkgname}-${version}-${revision}-x86_64.pkg.tar.zst" -C "${wrksrc}"
+}
+
+do_install() {
+	# Remove metadata files
+	rm -f .BUILDINFO
+	rm -f .MTREE
+	rm -f .PKGINFO
+
+	# Copy files
+	vcopy "*" /
+}
