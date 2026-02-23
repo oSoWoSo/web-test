@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = ssh://git@codeberg.org/oSoWoSo/xut.git
+	branch = master
+	commit = 38e4be2ed4733e87d72b13c437cd7a93b3373131
+	parent = 197ab4858e8dae47455d9c5b14ba251411547d99
+	method = merge
+	cmdver = 0.4.9
