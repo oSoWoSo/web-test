@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = git@codeberg.org:oSoWoSo/SimpleX-themes.git
+	branch = main
+	commit = f0e211dd29e791104f1b8c812c816cbb82ef09b4
+	parent = b67cbeee6b839f78efb4555ded8ff388001df9ee
+	method = merge
+	cmdver = 0.4.9
