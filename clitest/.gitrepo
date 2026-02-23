@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = ssh://git@codeberg.org/oSoWoSo/clitest.git
+	branch = main
+	commit = 0f6db8d0a56ca98bd5f92a0b535f7f9387b98c0b
+	parent = 2469e6749a5e140827f2c762ab68b87fc9ea645e
+	method = merge
+	cmdver = 0.4.9
