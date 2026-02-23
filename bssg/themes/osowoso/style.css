@@ -405,12 +405,6 @@ article .meta {
     font-size: 0.9rem;
 }
 
-@media (max-width: 0) { /* This targets text browsers */
-    .reading-time::before {
-        content: "[time] ";
-    }
-}
-
 /* Featured Images */
 .featured-image {
     margin: 2rem 0;
@@ -614,13 +608,6 @@ blockquote::before {
     left: 0.5rem;
 }
 
-/* Text browser fallback for blockquote */
-@media (max-width: 0) { /* This targets text browsers */
-    blockquote::before {
-        content: "";
-    }
-}
-
 /* Lists */
 ul, ol {
     margin-top: 0;
@@ -649,13 +636,6 @@ hr::before {
     padding: 0 1rem;
     color: var(--accent-color);
     font-size: 0.8rem;
-}
-
-/* Text browser fallback for hr decoration */
-@media (max-width: 0) { /* This targets text browsers */
-    hr::before {
-        content: "---";
-    }
 }
 
 /* Pagination */
