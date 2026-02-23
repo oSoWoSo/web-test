@@ -37,8 +37,8 @@ CUSTOM_CSS="" # Optional: Path to custom CSS file relative to output root (e.g.,
 SITE_TITLE="My new BSSG site"
 SITE_DESCRIPTION="A complete SSG - written in bash"
 SITE_URL="http://localhost:8000"
-AUTHOR_NAME="Anonymous" 
-AUTHOR_EMAIL="anonymous@example.com"
+AUTHOR_NAME="oSoWoSo" 
+AUTHOR_EMAIL="zen@duck.com"
 
 # Content configuration
 DATE_FORMAT="%Y-%m-%d %H:%M:%S %z"

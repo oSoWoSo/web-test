@@ -278,10 +278,12 @@ EOF
 edit_file() {
     local file="$1"
 
-    if ! "$EDITOR" "$file"; then
-       echo -e "${RED}Error: Editor '$EDITOR' failed or exited with non-zero status while editing '$file'.${NC}" >&2
-       # Decide if this should be a fatal error. Usually yes.
-       exit 1
+    if ! command -v "$EDITOR" &> /dev/null; then
+        echo -e "${RED}Error: Editor '$EDITOR' not found! Please install it or set a valid editor.${NC}" >&2
+        # Decide if this should be a fatal error. Usually yes.
+        exit 1
+    else
+        "$EDITOR" "$file"
     fi
 
     # Check if the file is empty or contains only whitespace after editing
