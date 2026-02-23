@@ -1,57 +1,131 @@
 #!/usr/bin/env bash
 
-for md in */*.md; do
-  tmpFile=$(mktemp)
+#tmpFile=$(mktemp)
+#title=$(echo "$md" | rev | cut -d'/' -f2 | rev)
+#fileName=$(basename "$md" .md)
+#file="website/pages/$title.md"
+lastmod=$(date "+%Y-%m-%d %H:%M:%S %z")
+date=$(date "+%Y-%m-%d %H:%M:%S %z")
+#secondary="true"
+#slug=$(echo "$title" | tr '[:upper:]' '[:lower:]')
 
-  title=$(echo "$md" | rev | cut -d'/' -f2 | rev)
-  file="website/pages/$title.md"
-  lastmod=$(date "+%Y-%m-%d %H:%M:%S %z")
-
-  if [ ! -f "$file" ]; then
-    echo -e "\nCreating new"
-    _g "$title"
-    echo -e "page\n"
-
-    date=$(date "+%Y-%m-%d %H:%M:%S %z")
-    tags=$(gum input --header "Add comma separated tags")
-    slug=$(echo "$title" | tr '[:upper:]' '[:lower:]')
-    secondary="true"
-
-    cat << EOF > "$tmpFile"
----
-title: $title
+# index
+echo "---
+title: oSoWoSo
 date: $date
 lastmod: $lastmod
-tags: $tags
-slug: $slug
-secondary: $secondary
----
-EOF
+tags: osowoso
+slug: index
+secondary: false
+---" > website/pages/index.md
+cat website/README.md >> website/pages/index.md
 
-  else
-    echo -e "\nEditing"
-    _g "$title"
-    echo -e "page\n"
-
-    title=$(grep    '^title:'     "$file" | cut -d' ' -f2-)
-    date=$(grep     '^date:'      "$file" | cut -d' ' -f2-)
-    tags=$(grep     '^tags:'      "$file" | cut -d' ' -f2-)
-    slug=$(grep     '^slug:'      "$file" | cut -d' ' -f2-)
-    secondary=$(grep '^secondary:' "$file" | cut -d' ' -f2-)
-
-    cat << EOF > "$tmpFile"
----
-title: $title
-date: $date
+# bssg
+echo "---
+title: bssg
+date: 2026-02-23 12:57:17 +0100
 lastmod: $lastmod
-tags: $tags
-slug: $slug
-secondary: $secondary
----
-EOF
+tags: bssg, static, site, website, generator, ssg
+slug: bssg
+secondary: true
+---" > website/pages/bssg.md
+cat bssg/README.md >> website/pages/bssg.md
 
-  fi
+# clitest
+echo "---
+title: clitest
+date: 2026-02-23 12:04:11 +0100
+lastmod: $lastmod
+tags: clitest, bash, sh, dash, test, framework, cli
+slug: clitest
+secondary: true
+---" > website/pages/clitest.md
+cat clitest/README.md >> website/pages/clitest.md
 
-  cat "$md" >> "$tmpFile"
-  mv "$tmpFile" "$file"
-done
+## contributing
+#echo "---
+#title: Contributing
+#date: 2026-02-06 23:54:00 +0100
+#lastmod: $lastmod
+#tags: project, contrib, void, abyss, xut, drako, emptty, quickemu, pr, mr, codeberg, github, repo, alovoa, kando, obtainium, simplex, simplex-chat, translate, translation
+#slug: contributing
+#secondary: false
+#---" > website/pages/contributing.md
+#cat contributing/README.md >> website/pages/contributing.md
+
+## projects
+#echo "---
+#title: Projects
+#date: 2026-02-06 23:24:00 +0100
+#lastmod: $lastmod
+#tags: projects, git, source, osowoso
+#slug: projects
+#secondary: false
+#---" > website/pages/projects.md
+#cat projects/README.md >> website/pages/projects.md
+
+## resources
+#echo "---
+#title: Resources
+#date: 2026-02-06 22:54:00 +0100
+#lastmod: $lastmod
+#tags: resource, project
+#slug: resources
+#secondary: false
+#---" > website/pages/resources.md
+#cat resources/README.md >> website/pages/resources.md
+
+# simplex-themes
+echo "---
+title: SimpleX-Themes
+date: 2026-02-23 12:04:51 +0100
+lastmod: $lastmod
+tags: simplex, simplex-chat, chat, themes
+slug: simplex-themes
+secondary: true
+---" > website/pages/simplex-themes.md
+cat SimpleX-Themes/README.md >> website/pages/simplex-themes.md
+
+# vbm
+echo "---
+title: vbm
+date: 2026-02-23 12:05:18 +0100
+lastmod: $lastmod
+tags: vbm, xbps, package, void
+slug: vbm
+secondary: true
+---" > website/pages/vbm.md
+cat vbm/README.md >> website/pages/vbm.md
+
+## void
+#echo "---
+#title: Void
+#date: 2026-02-06 23:54:00 +0100
+#lastmod: $lastmod
+#tags: void, linux, xbps, xbps-src, runit
+#slug: void
+#secondary: false
+#---" > website/pages/void.md
+#cat void/README.md >> website/pages/void.md
+
+# vut
+echo "---
+title: vut
+date: 2026-02-23 12:05:34 +0100
+lastmod: $lastmod
+tags: vut, void, template, xbps-src, xbps
+slug: vut
+secondary: true
+---" > website/pages/vut.md
+cat vut/README.md >> website/pages/vut.md
+
+# xut
+echo "---
+title: xut
+date: 2026-02-23 12:06:16 +0100
+lastmod: $lastmod
+tags: xut, void, xbps-src, template, repository
+slug: xut
+secondary: true
+---" > website/pages/xut.md
+cat xut/README.md >> website/pages/xut.md
