@@ -1,0 +1,22 @@
+name: Sync upstream branch
+
+on:
+  #schedule:
+  #  - cron: '0 4 * * *'
+  workflow_dispatch:
+
+jobs:
+  rebase:
+    runs-on: codeberg-tiny
+
+    steps:
+      - name: Rebase upstream branch
+        run: |
+          git clone --branch upstream https://codeberg.org/oSoWoSo/BSSG.git repo
+          cd repo
+          git config user.name "actions-bot"
+          git config user.email "actions-bot@noreply.codeberg.org"
+          git remote add upstream https://brew.bsd.cafe/stefano/BSSG.git
+          git fetch upstream
+          git rebase upstream/main
+          git push https://oSoWoSo:${{ secrets.GITEA_TOKEN }}@codeberg.org/oSoWoSo/BSSG.git upstream --force-with-lease
