@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+for md in */*.md; do
+  tmpFile=$(mktemp)
+
+  title=$(echo "$md" | rev | cut -d'/' -f2 | rev)
+  file="website/pages/$title.md"
+  lastmod=$(date "+%Y-%m-%d %H:%M:%S %z")
+
+  if [ ! -f "$file" ]; then
+    echo -e "\nCreating new"
+    _g "$title"
+    echo -e "page\n"
+
+    date=$(date "+%Y-%m-%d %H:%M:%S %z")
+    tags=$(gum input --header "Add comma separated tags")
+    slug=$(echo "$title" | tr '[:upper:]' '[:lower:]')
+    secondary="true"
+
+    cat << EOF > "$tmpFile"
+---
+title: $title
+date: $date
+lastmod: $lastmod
+tags: $tags
+slug: $slug
+secondary: $secondary
+---
+EOF
+
+  else
+    echo -e "\nEditing"
+    _g "$title"
+    echo -e "page\n"
+
+    title=$(grep    '^title:'     "$file" | cut -d' ' -f2-)
+    date=$(grep     '^date:'      "$file" | cut -d' ' -f2-)
+    tags=$(grep     '^tags:'      "$file" | cut -d' ' -f2-)
+    slug=$(grep     '^slug:'      "$file" | cut -d' ' -f2-)
+    secondary=$(grep '^secondary:' "$file" | cut -d' ' -f2-)
+
+    cat << EOF > "$tmpFile"
+---
+title: $title
+date: $date
+lastmod: $lastmod
+tags: $tags
+slug: $slug
+secondary: $secondary
+---
+EOF
+
+  fi
+
+  cat "$md" >> "$tmpFile"
+  mv "$tmpFile" "$file"
+done
