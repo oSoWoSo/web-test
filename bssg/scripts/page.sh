@@ -36,7 +36,10 @@ VI_FALLBACK=false
 # Check if EDITOR is set, otherwise default to nano or vi
 # Use inherited color variables (e.g. $YELLOW, $NC)
 if [ -z "$EDITOR" ]; then
-    if command -v nano &> /dev/null; then
+    if command -v hx &> /dev/null; then
+        echo -e "${YELLOW}EDITOR environment variable not set. Using Helix as default.${NC}" # Use inherited vars
+        EDITOR="hx"
+    elif command -v nano &> /dev/null; then
         echo -e "${YELLOW}EDITOR environment variable not set. Using nano as default.${NC}" # Use inherited vars
         EDITOR="nano"
     elif command -v vi &> /dev/null; then
