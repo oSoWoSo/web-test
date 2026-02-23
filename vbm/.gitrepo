@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = ssh://git@codeberg.org/oSoWoSo/vbm.git
+	branch = vbm
+	commit = f9023b0926c1bc0fb3de3a84dd96cdabb46e863e
+	parent = 6a47bde95e5301262bc53f365630941a829f66c3
+	method = merge
+	cmdver = 0.4.9
