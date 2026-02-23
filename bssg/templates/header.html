@@ -17,6 +17,7 @@
     <meta name="theme-color" content="#808080">
     <link rel="stylesheet" href="{{site_url}}/css/style.css">
     <link rel="alternate" type="application/rss+xml" title="{{rss_feed}}" href="{{site_url}}/{{rss_filename}}">
+    <script>if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-theme');</script>
     {{schema_json_ld}}
     {{custom_css_link}}
 </head>
@@ -26,7 +27,17 @@
             <div class="site-title"><a href="{{site_url}}/">{{site_title}}</a></div>
             <p>{{site_description}}</p>
             <nav>
-                {{menu_items}}
+                <div class="nav-left">
+                    {{menu_items}}
+                </div>
+                <div class="nav-right">
+                    <a href="https://feedback.osowoso.org/">feedback</a>
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <span class="icon light-icon active">☀️</span>
+                        <span class="icon dark-icon">🌙</span>
+                    </button>
+                </div>
             </nav>
+            <script src="/toggle.js"></script>
         </header>
-        <main> 
+        <main>
