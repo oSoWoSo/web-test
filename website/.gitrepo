@@ -6,7 +6,7 @@
 [subrepo]
 	remote = git@codeberg.org:oSoWoSo/website.git
 	branch = main
-	commit = 7689d0eaae3750fdbe61cb4f96416ee0c8b31b3d
-	parent = b225dea58db21f37a3feed541e178e4c2bd170a0
+	commit = 8ae233b27ab57f1ff66b29805e3bcbc44ed2608f
+	parent = 89f40d5400120efaeb7476d9eff37fda3db9c404
 	method = merge
 	cmdver = 0.4.9
