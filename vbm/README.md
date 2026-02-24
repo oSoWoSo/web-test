@@ -97,7 +97,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 - https://github.com/netzverweigerer/vpm - vpm was written by Armin Jenewein <vpm@m2m.pm>
 - https://github.com/bahamas10/vpm - forked by Dave Eddy <dave@daveeddy.com>
-- https://codeberg.org/oSoWoSo/vbm - and this fork by zenobit <zen@osowoso.xyz>
+- https://codeberg.org/oSoWoSo/vbm - and this fork by zenobit <zen@duck.com>
 
 # Mirrors
 
