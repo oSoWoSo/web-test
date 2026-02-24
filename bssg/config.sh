@@ -31,7 +31,7 @@ PRECOMPRESS_ASSETS="false" # Options: "true", "false". If true, compress text as
 BUILD_MODE="ram" # Options: "normal", "ram". "ram" preloads inputs and keeps build state in memory (writes only output artifacts).
 
 # Customization
-CUSTOM_CSS="" # Optional: Path to custom CSS file relative to output root (e.g., "/css/custom.css"). File should be placed in STATIC_DIR.
+CUSTOM_CSS="/selector.css" # Optional: Path to custom CSS file relative to output root (e.g., "/css/custom.css"). File should be placed in STATIC_DIR.
 
 # Site information
 SITE_TITLE="My new BSSG site"

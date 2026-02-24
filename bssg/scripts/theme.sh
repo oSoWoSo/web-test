@@ -70,15 +70,13 @@ theme_variables="$theme_variables theme_is_${current_theme}:true"
 # Current time for BlackBerry status bar - use more portable date command
 current_time=$(date +"%H:%M")
 theme_variables="$theme_variables current_time:$current_time"
-
-# Ensure CSS directory exists
-mkdir -p "$CSS_DIR"
-
 # Function to update the CSS file based on the selected theme
 update_css() {
-    echo "Theme CSS updated!"
-    echo "Theme '${current_theme}' applied!"
+    # Ensure CSS directory exists
+    mkdir -p "$CSS_DIR"
+    # Copy active theme as style.css (default stylesheet)
     cp "${THEME_DIR}/${current_theme}/style.css" "${CSS_DIR}/style.css"
+    echo "Theme '${current_theme}' applied!"
 }
 
 # Export theme variables as JSON in a more portable way

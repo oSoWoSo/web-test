@@ -289,6 +289,20 @@ preload_templates() {
 
     footer_items+=" <a href=\"${SITE_URL}/${RSS_FILENAME:-rss.xml}\">${MSG_SUBSCRIBE_RSS:-"Subscribe via RSS"}</a>"
 
+    # Generate theme selector options from THEMES_DIR
+    local theme_items=""
+    if [ -d "${THEMES_DIR:-themes}" ]; then
+        while IFS= read -r t_dir; do
+            if [ -d "$t_dir" ] && [ -f "$t_dir/style.css" ]; then
+                local t_name
+                t_name=$(basename "$t_dir")
+                theme_items+="                <option value='${t_name}'>${t_name}</option>"$'\n'
+            fi
+        done < <(find "${THEMES_DIR:-themes}" -mindepth 1 -maxdepth 1 -type d | sort)
+    fi
+
+    # Replace theme_items placeholder in header
+    HEADER_TEMPLATE=${HEADER_TEMPLATE//\{\{theme_items\}\}/"$theme_items"}
     # Replace menu placeholders in templates
     HEADER_TEMPLATE=${HEADER_TEMPLATE//\{\{menu_items\}\}/"$menu_items"}
     FOOTER_TEMPLATE=${FOOTER_TEMPLATE//\{\{menu_items\}\}/"$footer_items"}

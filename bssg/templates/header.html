@@ -16,9 +16,9 @@
     {{twitter_image}}
     <meta name="theme-color" content="#808080">
     <link rel="icon" href="/favicon.jpg">
+    <link rel="stylesheet" href="{{site_url}}/selector.css">
     <link rel="stylesheet" href="{{site_url}}/css/style.css">
     <link rel="alternate" type="application/rss+xml" title="{{rss_feed}}" href="{{site_url}}/{{rss_filename}}">
-    <script>if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-theme');</script>
     {{schema_json_ld}}
     {{custom_css_link}}
 </head>
@@ -27,22 +27,67 @@
         <header>
             <div class="site-title"><a href="{{site_url}}/">{{site_title}}</a></div>
             <p>{{site_description}}</p>
+            <div class="theme-selector">
+                <label for="theme-select">theme:</label>
+                <select id='theme-select' onchange='changeTheme()'>
+                {{theme_items}}
+                </select>
+                <link id='theme-style' rel='stylesheet' href=''>
+            </div>
             <nav>
                 <div class="nav-left">
                     {{menu_items}}
                 </div>
                 <div class="nav-right">
-                    <a href="https://feedback.osowoso.org/">feedback</a>
                     <a href="https://osowoso.discourse.group/">forum</a>
-                    <button class="theme-toggle" aria-label="Toggle theme">
-                        <span class="icon light-icon active">☀️</span>
-                        <span class="icon dark-icon">🌙</span>
-                    </button>
                 </div>
                 <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-left">
                     <span class="hamburger-icon">☰</span>
                 </button>
             </nav>
-            <script src="/toggle.js"></script>
+            <script>
+                function changeTheme() {
+                    var select = document.getElementById('theme-select');
+                    var theme = select.value;
+                    var styleLink = document.getElementById('theme-style');
+                    styleLink.href = '/css/theme-' + theme + '.css';
+                    localStorage.setItem('theme', theme);
+                }
+
+                document.addEventListener('DOMContentLoaded', function() {
+                    var savedTheme = localStorage.getItem('theme') || 'osowoso';
+                    document.getElementById('theme-select').value = savedTheme;
+                    document.getElementById('theme-style').href = '/css/theme-' + savedTheme + '.css';
+
+                    /* Hamburger menu */
+                    var hamburger = document.querySelector('.nav-hamburger');
+                    var navLeft   = document.querySelector('.nav-left');
+                    if (hamburger && navLeft) {
+                        hamburger.addEventListener('click', function () {
+                            var isOpen = navLeft.classList.toggle('open');
+                            hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                            hamburger.querySelector('.hamburger-icon').textContent = isOpen ? '✕' : '☰';
+                        });
+
+                        /* Close menu when clicking outside */
+                        document.addEventListener('click', function (e) {
+                            if (!hamburger.contains(e.target) && !navLeft.contains(e.target)) {
+                                navLeft.classList.remove('open');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                                hamburger.querySelector('.hamburger-icon').textContent = '☰';
+                            }
+                        });
+
+                        /* Close menu when a nav link is clicked */
+                        navLeft.addEventListener('click', function (e) {
+                            if (e.target.tagName === 'A') {
+                                navLeft.classList.remove('open');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                                hamburger.querySelector('.hamburger-icon').textContent = '☰';
+                            }
+                        });
+                    }
+                });
+            </script>
         </header>
         <main>

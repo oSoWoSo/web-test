@@ -52,13 +52,23 @@ create_css() {
         # Decide if this is fatal. For now, just warn and skip CSS copy.
         return 1 # Return error code
     fi
-    
-    # Copy the theme CSS file
-    cp "$theme_dir/style.css" "${css_dir}/style.css"
-    
-    echo "CSS file copied to ${css_dir}"
-}
 
+    # Copy the active theme as style.css (default stylesheet)
+    cp "$theme_dir/style.css" "${css_dir}/style.css"
+    echo "CSS file copied to ${css_dir}"
+
+    # Copy all theme CSS files as css/theme-<name>.css
+    local count=0
+    while IFS= read -r t_dir; do
+        if [ -d "$t_dir" ] && [ -f "$t_dir/style.css" ]; then
+            local t_name
+            t_name=$(basename "$t_dir")
+            cp "$t_dir/style.css" "${css_dir}/theme-${t_name}.css"
+            count=$((count + 1))
+        fi
+    done < <(find "${THEMES_DIR}" -mindepth 1 -maxdepth 1 -type d | sort)
+    echo -e "${GREEN}Copied $count theme CSS files to ${css_dir}${NC}"
+}
 # Export functions
 export -f copy_static_files
-export -f create_css 
+export -f create_css
