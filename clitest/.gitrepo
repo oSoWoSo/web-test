@@ -7,6 +7,6 @@
 	remote = ssh://git@codeberg.org/oSoWoSo/clitest.git
 	branch = main
 	commit = 0f6db8d0a56ca98bd5f92a0b535f7f9387b98c0b
-	parent = 2469e6749a5e140827f2c762ab68b87fc9ea645e
+	parent = 529dd493084d3c168611983deb793655f3dfbd10
 	method = merge
 	cmdver = 0.4.9
