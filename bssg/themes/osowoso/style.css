@@ -1,19 +1,7 @@
 /*
  * oSoWoSo Theme for BSSG
  * A modern dark theme with improved accessibility and compatibility
- * Light/dark toggle via button.theme-toggle + /toggle.js
- *
- * HTML structure (in nav <li>):
- *
- *   <li>
- *     <button class="theme-toggle" aria-label="Toggle theme">
- *       <span class="icon light-icon active">☀️</span>
- *       <span class="icon dark-icon">🌙</span>
- *     </button>
- *   </li>
- *   <script src="/toggle.js"></script>
- *
- * toggle.js toggles class "light-theme" on <body> and saves to localStorage.
+ * Theme switching via #theme-select selector in header.
  */
 
 /* Reduced motion support */

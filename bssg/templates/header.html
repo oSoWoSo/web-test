@@ -45,49 +45,7 @@
                     <span class="hamburger-icon">☰</span>
                 </button>
             </nav>
-            <script>
-                function changeTheme() {
-                    var select = document.getElementById('theme-select');
-                    var theme = select.value;
-                    var styleLink = document.getElementById('theme-style');
-                    styleLink.href = '/css/theme-' + theme + '.css';
-                    localStorage.setItem('theme', theme);
-                }
-
-                document.addEventListener('DOMContentLoaded', function() {
-                    var savedTheme = localStorage.getItem('theme') || 'osowoso';
-                    document.getElementById('theme-select').value = savedTheme;
-                    document.getElementById('theme-style').href = '/css/theme-' + savedTheme + '.css';
-
-                    /* Hamburger menu */
-                    var hamburger = document.querySelector('.nav-hamburger');
-                    var navLeft   = document.querySelector('.nav-left');
-                    if (hamburger && navLeft) {
-                        hamburger.addEventListener('click', function () {
-                            var isOpen = navLeft.classList.toggle('open');
-                            hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-                            hamburger.querySelector('.hamburger-icon').textContent = isOpen ? '✕' : '☰';
-                        });
-
-                        /* Close menu when clicking outside */
-                        document.addEventListener('click', function (e) {
-                            if (!hamburger.contains(e.target) && !navLeft.contains(e.target)) {
-                                navLeft.classList.remove('open');
-                                hamburger.setAttribute('aria-expanded', 'false');
-                                hamburger.querySelector('.hamburger-icon').textContent = '☰';
-                            }
-                        });
-
-                        /* Close menu when a nav link is clicked */
-                        navLeft.addEventListener('click', function (e) {
-                            if (e.target.tagName === 'A') {
-                                navLeft.classList.remove('open');
-                                hamburger.setAttribute('aria-expanded', 'false');
-                                hamburger.querySelector('.hamburger-icon').textContent = '☰';
-                            }
-                        });
-                    }
-                });
-            </script>
+            <script src="/theme-switcher.js" defer></script>
+            <script src="/hamburger.js" defer></script>
         </header>
         <main>
