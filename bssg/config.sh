@@ -27,7 +27,7 @@ CACHE_DIR=".bssg_cache" # Default cache directory location (relative to BSSG roo
 CLEAN_OUTPUT=true # If true, BSSG will always perform a full rebuild
 REBUILD_AFTER_POST=true # Build site automatically after creating a new post (scripts/post.sh)
 REBUILD_AFTER_EDIT=true # Build site automatically after editing a post (scripts/edit.sh)
-PRECOMPRESS_ASSETS="true" # Options: "true", "false". If true, compress text assets (HTML, CSS, XML, JS) with gzip during build.
+PRECOMPRESS_ASSETS="false" # Options: "true", "false". If true, compress text assets (HTML, CSS, XML, JS) with gzip during build.
 BUILD_MODE="ram" # Options: "normal", "ram". "ram" preloads inputs and keeps build state in memory (writes only output artifacts).
 
 # Customization
