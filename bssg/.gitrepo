@@ -6,7 +6,7 @@
 [subrepo]
 	remote = git@codeberg.org:oSoWoSo/BSSG.git
 	branch = main
-	commit = 4066f336500141594c1d7fa76969e8d11b272fc8
-	parent = 815356f4c3eea7462d75197a0de0770c371e7edc
+	commit = 8661eba225073632c56221bb81a75f0c1a3f2946
+	parent = c564054bf41e996345ed6c07e1dcf3e592d457ff
 	method = merge
 	cmdver = 0.4.9
